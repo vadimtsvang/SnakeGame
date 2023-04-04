@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F857BF429BF36FF00FE371F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F857BF329BF36FF00FE371F /* AppDelegate.swift */; };
 		1F857BF629BF36FF00FE371F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F857BF529BF36FF00FE371F /* SceneDelegate.swift */; };
-		1F857BF829BF36FF00FE371F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F857BF729BF36FF00FE371F /* ViewController.swift */; };
+		1F857BF829BF36FF00FE371F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F857BF729BF36FF00FE371F /* MainViewController.swift */; };
 		1F857BFD29BF370200FE371F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F857BFC29BF370200FE371F /* Assets.xcassets */; };
 		1F857C0029BF370200FE371F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F857BFE29BF370200FE371F /* LaunchScreen.storyboard */; };
 		1F857C0D29BF495D00FE371F /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F857C0C29BF495D00FE371F /* BoardView.swift */; };
@@ -18,6 +18,9 @@
 		1F857C1329C09FAA00FE371F /* SnakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F857C1229C09FA900FE371F /* SnakeCell.swift */; };
 		1F8905F129C9D87C007C3B18 /* SnakeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8905F029C9D87C007C3B18 /* SnakeModel.swift */; };
 		1F8905F329C9F395007C3B18 /* AddPointModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8905F229C9F395007C3B18 /* AddPointModel.swift */; };
+		1F89063029D5C1A2007C3B18 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89062F29D5C1A2007C3B18 /* JoystickView.swift */; };
+		1F89063229DAE8AC007C3B18 /* ControlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89063129DAE8AC007C3B18 /* ControlModel.swift */; };
+		1F89063429DAF37D007C3B18 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89063329DAF37D007C3B18 /* MainView.swift */; };
 		1FB6A9E629C4A2BC002A5862 /* MovingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6A9E529C4A2BC002A5862 /* MovingModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +28,7 @@
 		1F857BF029BF36FF00FE371F /* Snake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F857BF329BF36FF00FE371F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F857BF529BF36FF00FE371F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1F857BF729BF36FF00FE371F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1F857BF729BF36FF00FE371F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1F857BFC29BF370200FE371F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F857BFF29BF370200FE371F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F857C0129BF370200FE371F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +38,9 @@
 		1F857C1229C09FA900FE371F /* SnakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCell.swift; sourceTree = "<group>"; };
 		1F8905F029C9D87C007C3B18 /* SnakeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeModel.swift; sourceTree = "<group>"; };
 		1F8905F229C9F395007C3B18 /* AddPointModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPointModel.swift; sourceTree = "<group>"; };
+		1F89062F29D5C1A2007C3B18 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
+		1F89063129DAE8AC007C3B18 /* ControlModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlModel.swift; sourceTree = "<group>"; };
+		1F89063329DAF37D007C3B18 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1FB6A9E529C4A2BC002A5862 /* MovingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,9 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				1F857C0729BF472600FE371F /* Application */,
-				1F857C0B29BF489300FE371F /* Controllers */,
 				1F857C0A29BF487400FE371F /* Models */,
 				1F857C0929BF486C00FE371F /* Views */,
+				1F857C0B29BF489300FE371F /* Controllers */,
 				1F857C0829BF475500FE371F /* SupportingFiles */,
 			);
 			path = Snake;
@@ -101,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				1F857C0C29BF495D00FE371F /* BoardView.swift */,
+				1F89062F29D5C1A2007C3B18 /* JoystickView.swift */,
+				1F89063329DAF37D007C3B18 /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +121,7 @@
 				1FB6A9E529C4A2BC002A5862 /* MovingModel.swift */,
 				1F8905F029C9D87C007C3B18 /* SnakeModel.swift */,
 				1F8905F229C9F395007C3B18 /* AddPointModel.swift */,
+				1F89063129DAE8AC007C3B18 /* ControlModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -120,7 +129,7 @@
 		1F857C0B29BF489300FE371F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F857BF729BF36FF00FE371F /* ViewController.swift */,
+				1F857BF729BF36FF00FE371F /* MainViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -196,9 +205,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8905F329C9F395007C3B18 /* AddPointModel.swift in Sources */,
+				1F89063429DAF37D007C3B18 /* MainView.swift in Sources */,
+				1F89063029D5C1A2007C3B18 /* JoystickView.swift in Sources */,
 				1F857C0F29BF4C6400FE371F /* GameModel.swift in Sources */,
 				1F857C1129BF4E3C00FE371F /* Recources.swift in Sources */,
-				1F857BF829BF36FF00FE371F /* ViewController.swift in Sources */,
+				1F89063229DAE8AC007C3B18 /* ControlModel.swift in Sources */,
+				1F857BF829BF36FF00FE371F /* MainViewController.swift in Sources */,
 				1F857C0D29BF495D00FE371F /* BoardView.swift in Sources */,
 				1F8905F129C9D87C007C3B18 /* SnakeModel.swift in Sources */,
 				1F857BF429BF36FF00FE371F /* AppDelegate.swift in Sources */,

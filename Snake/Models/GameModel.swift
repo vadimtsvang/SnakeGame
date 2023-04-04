@@ -9,8 +9,8 @@ import Foundation
 
 class GameModel {
     
-    static let cols = 20
-    static let rows = 40
+    static let cols = 15
+    static let rows = 15
     
     private var snake: SnakeModel?
     private var addPoint: AddPointModel?
@@ -32,27 +32,22 @@ class GameModel {
         return false
     }
     
-    private func randomizeAddPoint() {
-        guard let addPoint else { return }
-        let col = addPoint.coordinate.col
-        let row = addPoint.coordinate.row
-        while isOnSnake(col: col, row: row) {
-            addPoint.randomizeAddPoint()
-        }
-    }
-    
     func checkEating() {
-        if snake?.snake[0].col == addPoint?.coordinate.col &&
-            snake?.snake[0].row == addPoint?.coordinate.row {
-            snake?.eatAddPoint()
-            addPoint?.randomizeAddPoint()
+        guard let snake, let addPoint else { return }
+        if snake.snake[0].col == addPoint.coordinate.col &&
+            snake.snake[0].row == addPoint.coordinate.row {
+            snake.eatAddPoint()
+            addPoint.randomizeAddPoint()
+            while isOnSnake(col: addPoint.coordinate.col, row: addPoint.coordinate.row) {
+                addPoint.randomizeAddPoint()
+            }
         }
     }
     
     func isOnBoard() -> Bool {
         guard let snake else { return false }
         if snake.snake[0].row < 0 || snake.snake[0].row > GameModel.rows - 1 ||
-            snake.snake[0].col < 0 || snake.snake[0].col > GameModel.cols - 1{
+            snake.snake[0].col < 0 || snake.snake[0].col > GameModel.cols - 1 {
             return false
         }
         return true
