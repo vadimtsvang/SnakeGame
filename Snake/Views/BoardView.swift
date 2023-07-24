@@ -7,25 +7,24 @@
 
 import UIKit
 
-protocol BoardProtocol: AnyObject {
-    func swipeGesture(direction: UISwipeGestureRecognizer.Direction)
-}
-
 class BoardView: UIView {
     
-    weak var boardDelegate: BoardProtocol?
-    
-    private let originX: CGFloat = 0
-    private let originY: CGFloat = 0
+    private var cols = 0
+    private var rows = 0
     private var cellSide: CGFloat = 0
     
-    var snake: [SnakeCell]?
+    var snake: [SnakeCell] = [] {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     var addPoint: CGPoint?
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        cellSide = frame.width / CGFloat(GameModel.cols)
+        cellSide = frame.width / CGFloat(cols)
     }
     
     override init(frame: CGRect) {
@@ -39,11 +38,16 @@ class BoardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init(cols: Int, rows: Int) {
+        self.init()
+        self.cols = cols
+        self.rows = rows
+    }
+    
     override func draw(_ rect: CGRect) {
         drawGrid()
         drawAddPoint()
         drawSnake()
-        addSwipe()
     }
     
     //MARK: - Draw objects
@@ -52,15 +56,15 @@ class BoardView: UIView {
         
         let gridPath = UIBezierPath()
         
-        for i in 0...GameModel.rows {
-            gridPath.move(to: CGPoint(x: originX, y: originY + CGFloat(i) * cellSide))
-            gridPath.addLine(to: CGPoint(x: originX + CGFloat(GameModel.cols) * cellSide, y: originY + CGFloat(i) * cellSide))
+        for i in 0...rows {
+            gridPath.move(to: CGPoint(x: 0, y: CGFloat(i) * cellSide))
+            gridPath.addLine(to: CGPoint(x: CGFloat(cols) * cellSide, y: CGFloat(i) * cellSide))
             
         }
         
-        for i in 0...GameModel.cols {
-            gridPath.move(to: CGPoint(x: originX + CGFloat(i) * cellSide, y: originY))
-            gridPath.addLine(to: CGPoint(x: originX + CGFloat(i) * cellSide, y: originY + CGFloat(GameModel.rows) * cellSide))
+        for i in 0...cols {
+            gridPath.move(to: CGPoint(x: CGFloat(i) * cellSide, y: 0))
+            gridPath.addLine(to: CGPoint(x: CGFloat(i) * cellSide, y: CGFloat(rows) * cellSide))
             
         }
         
@@ -70,11 +74,11 @@ class BoardView: UIView {
     
     private func drawSnake() {
         
-        guard let snake, !snake.isEmpty, let snakeHead = snake.first else { return }
+        guard !snake.isEmpty, let snakeHead = snake.first else { return }
         
         SnakeColor.snakeHead.setFill()
-        UIBezierPath(roundedRect: CGRect(x: originX + CGFloat(snakeHead.col) * cellSide,
-                                         y: originY + CGFloat(snakeHead.row) * cellSide,
+        UIBezierPath(roundedRect: CGRect(x: CGFloat(snakeHead.col) * cellSide,
+                                         y: CGFloat(snakeHead.row) * cellSide,
                                          width: cellSide,
                                          height: cellSide),
                      cornerRadius: 5).fill()
@@ -82,8 +86,8 @@ class BoardView: UIView {
         SnakeColor.snakeBody.setFill()
         for i in 1..<snake.count {
             let cell = snake[i]
-            UIBezierPath(roundedRect: CGRect(x: originX + CGFloat(cell.col) * cellSide,
-                                             y: originY + CGFloat(cell.row) * cellSide,
+            UIBezierPath(roundedRect: CGRect(x: CGFloat(cell.col) * cellSide,
+                                             y: CGFloat(cell.row) * cellSide,
                                              width: cellSide,
                                              height: cellSide),
                          cornerRadius: 5).fill()
@@ -93,26 +97,10 @@ class BoardView: UIView {
     private func drawAddPoint() {
         guard let addPoint else { return }
         SnakeColor.addPoint.setFill()
-        UIBezierPath(roundedRect: CGRect(x: originX + addPoint.x * cellSide,
-                                         y: originY + addPoint.y * cellSide,
+        UIBezierPath(roundedRect: CGRect(x: addPoint.x * cellSide,
+                                         y: addPoint.y * cellSide,
                                          width: cellSide,
                                          height: cellSide),
                      cornerRadius: 5).fill()
-        
-    }
-    
-    //MARK: - UISwipeGestureRecognizer
-    
-    private func addSwipe() {
-        let directions: [UISwipeGestureRecognizer.Direction] = [.left, .right, .up, .down]
-        directions.forEach {
-            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender: )))
-            swipe.direction = $0
-            addGestureRecognizer(swipe)
-        }
-    }
-    
-    @objc private func handleSwipe(sender: UISwipeGestureRecognizer) {
-        boardDelegate?.swipeGesture(direction: sender.direction)
     }
 }
