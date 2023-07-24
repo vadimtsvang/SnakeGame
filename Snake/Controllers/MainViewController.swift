@@ -9,61 +9,42 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    private var gameModel: GameModel?
+    private let gameDetails: GameDetails
+    
     private var mainView: MainView {
         view as! MainView
     }
-    
-    private var gameModel = GameModel()
-    private let snakeModel = SnakeModel()
-    private let addPointModel = AddPointModel()
-    private let controlModel = ControlModel()
-    
-    private var timer = Timer()
-    
-    
-    //MARK: - Lifecycle
-    
+        
     override func loadView() {
-        self.view = MainView()
+        self.view = MainView(gameDetails: gameDetails)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        gameModel = GameModel(snake: snakeModel, addPoint: addPointModel)
-        setDelegates()
-        startTimer()
+
+        gameModel = GameModel(vc: self, cols: gameDetails.cols, rows: gameDetails.rows)
+        mainView.boardDelegate = self
     }
     
-    private func setDelegates() {
-        mainView.joystickView.joystickDelegate = self
-        mainView.boardView.boardDelegate = self
+    init(gameDetails: GameDetails) {
+        self.gameDetails = gameDetails
+        super.init(nibName: nil, bundle: nil)
     }
     
-    //MARK: - Timer Actions
     
-    private func startTimer() {
-        
-        timer = Timer.scheduledTimer(timeInterval: 0.3,
-                                     target: self, selector: #selector(timerAction),
-                                     userInfo: nil, repeats: true)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func timerAction() {
-        gameModel.checkEating()
-        snakeModel.checkDirection(controlModel.direction)
-        snakeModel.moveSnake()
-        if !gameModel.isOnBoard() || !gameModel.crashTest() {
-            timer.invalidate()
-        }
-        
-        updateUI()
+    func updateSnake(_ snake: [SnakeCell]) {
+        let boardView = mainView.subviews[0] as? BoardView
+        boardView?.snake = snake
     }
     
-    private func updateUI() {
-        mainView.boardView.snake = snakeModel.snake
-        mainView.boardView.addPoint = CGPoint(x: addPointModel.coordinate.col, y: addPointModel.coordinate.row)
-        mainView.boardView.setNeedsDisplay()
+    func updateAddPoint(_ addPoint: CGPoint) {
+        let boardView = mainView.subviews[0] as? BoardView
+        boardView?.addPoint = addPoint
     }
 }
 
@@ -72,20 +53,12 @@ class MainViewController: UIViewController {
 extension MainViewController: BoardProtocol {
     func swipeGesture(direction: UISwipeGestureRecognizer.Direction) {
         switch direction {
-        case .left: controlModel.direction = .left
-        case .right: controlModel.direction = .right
-        case .up: controlModel.direction = .up
-        case .down: controlModel.direction = .down
+        case .left: gameModel?.changeDirection(.left)
+        case .right: gameModel?.changeDirection(.right)
+        case .up: gameModel?.changeDirection(.up)
+        case .down: gameModel?.changeDirection(.down)
         default:
             break
         }
-    }
-}
-
-//MARK: - JoystickProtocol
-
-extension MainViewController: JoystickProtocol {
-    func changePointLocation(_ point: CGPoint) {
-        controlModel.changeDirection(point)
     }
 }

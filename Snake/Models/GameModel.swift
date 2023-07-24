@@ -9,60 +9,95 @@ import Foundation
 
 class GameModel {
     
-    static let cols = 15
-    static let rows = 15
+    private var gameField: GameField
+    private var snake = Snake()
+    private var addPoint = AddPoint()
     
-    private var snake: SnakeModel?
-    private var addPoint: AddPointModel?
+    private let gameTimer = GameTimer()
     
-    init() { }
+    private weak var viewController: MainViewController?
     
-    init(snake: SnakeModel, addPoint: AddPointModel) {
-        self.snake = snake
-        self.addPoint = addPoint
+    private var score = 0
+    private var nextLevel = 2
+    
+    var gameScore: (score: String, nextLevel: String) {
+        let score = "Score: \(score)"
+        let nextLevel = "Next Level: \(nextLevel)"
+        return (score, nextLevel)
     }
     
-    private func isOnSnake(col: Int, row: Int) -> Bool {
-        guard let snake else { return true }
-        for cell in snake.snake {
-            if cell.col == col && cell.row == row {
-                return true
-            }
-        }
-        return false
+    init(vc: MainViewController,cols: Int, rows: Int) {
+        self.gameField = GameField(cols: cols, rows: rows)
+        viewController = vc
+        gameTimer.timerDelegate = self
+        gameTimer.startTimer()
+        vc.updateAddPoint(CGPoint(x: addPoint.coordinate.col, y: addPoint.coordinate.row))
     }
     
-    func checkEating() {
-        guard let snake, let addPoint else { return }
-        if snake.snake[0].col == addPoint.coordinate.col &&
-            snake.snake[0].row == addPoint.coordinate.row {
-            snake.eatAddPoint()
-            addPoint.randomizeAddPoint()
-            while isOnSnake(col: addPoint.coordinate.col, row: addPoint.coordinate.row) {
-                addPoint.randomizeAddPoint()
-            }
-        }
+    func changeDirection(_ direction: MovingDirection) {
+        snake.checkDirection(direction)
     }
+//
+//    private func isOnSnake(col: Int, row: Int) -> Bool {
+//        guard let snake else { return true }
+//        for cell in snake.snake {
+//            if cell.col == col && cell.row == row {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+//
+//    private func checkEating() {
+//        guard let snake, let addPoint else { return }
+//        if snake.snake[0].col == addPoint.coordinate.col &&
+//            snake.snake[0].row == addPoint.coordinate.row {
+//            score += 1
+//            nextLevel -= 1
+//            snake.eatAddPoint()
+//            addPoint.randomizeAddPoint()
+//            while isOnSnake(col: addPoint.coordinate.col, row: addPoint.coordinate.row) {
+//                addPoint.randomizeAddPoint()
+//            }
+//        }
+//    }
+//
+//    func checkNextLevel() -> Bool {
+//        checkEating()
+//        if nextLevel == 0 {
+//            nextLevel = 100
+//            return true
+//        }
+//        return false
+//    }
+//
+//    func isOnBoard() -> Bool {
+//        guard let snake else { return false }
+//        if snake.snake[0].row < 0 || snake.snake[0].row > GameModel.rows - 1 ||
+//            snake.snake[0].col < 0 || snake.snake[0].col > GameModel.cols - 1 {
+//            return false
+//        }
+//        return true
+//    }
+//
+//    func crashTest() -> Bool {
+//        guard let snake else { return false }
+//
+//        var snakeWithoutHead = snake.snake
+//        snakeWithoutHead.removeFirst()
+//
+//        let head = snake.snake[0]
+//        if snakeWithoutHead.contains(where: {$0.col == head.col && $0.row == head.row}) {
+//            return false
+//        }
+//        return true
+//    }
+}
+
+extension GameModel: TimerProtocol {
     
-    func isOnBoard() -> Bool {
-        guard let snake else { return false }
-        if snake.snake[0].row < 0 || snake.snake[0].row > GameModel.rows - 1 ||
-            snake.snake[0].col < 0 || snake.snake[0].col > GameModel.cols - 1 {
-            return false
-        }
-        return true
-    }
-    
-    func crashTest() -> Bool {
-        guard let snake else { return false }
-        
-        var snakeWithoutHead = snake.snake
-        snakeWithoutHead.removeFirst()
-        
-        let head = snake.snake[0]
-        if snakeWithoutHead.contains(where: {$0.col == head.col && $0.row == head.row}) {
-            return false
-        }
-        return true
+    func timeAction() {
+        snake.moveSnake()
+        viewController?.updateSnake(snake.snake)
     }
 }

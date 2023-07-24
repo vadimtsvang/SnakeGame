@@ -1,5 +1,5 @@
 //
-//  AddPointModel.swift
+//  AddPoint.swift
 //  Snake
 //
 //  Created by Vadim on 21.03.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AddPointModel {
+class AddPoint {
     private var col = 1
     private var row = 4
     
@@ -15,8 +15,8 @@ class AddPointModel {
         (col, row)
     }
     
-    func randomizeAddPoint() {
-        col = Int.random(in: 1..<GameModel.cols)
-        row = Int.random(in: 1..<GameModel.rows)
-    }
+//    func randomizeAddPoint() {
+//        col = Int.random(in: 1..<GameModel.cols)
+//        row = Int.random(in: 1..<GameModel.rows)
+//    }
 }
