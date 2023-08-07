@@ -13,7 +13,7 @@ class BoardView: UIView {
     private var rows = 0
     private var cellSide: CGFloat = 0
     
-    var snake: [SnakeCell] = [] {
+    var snake: [GameCell] = [] {
         didSet {
             setNeedsDisplay()
         }
