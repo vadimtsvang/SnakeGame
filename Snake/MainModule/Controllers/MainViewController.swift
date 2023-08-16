@@ -22,7 +22,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         gameModel = GameModel(vc: self, cols: gameDetails.cols, rows: gameDetails.rows)
         mainView.boardDelegate = self
     }

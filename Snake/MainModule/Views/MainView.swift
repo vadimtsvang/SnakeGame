@@ -48,10 +48,9 @@ class MainView: UIView {
     private func configureBoardView() {
         addSubview(boardView)
         NSLayoutConstraint.activate([
-            boardView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            boardView.centerYAnchor.constraint(equalTo: centerYAnchor),
             boardView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             boardView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            boardView.heightAnchor.constraint(equalTo: boardView.widthAnchor, multiplier: 1)
         ])
     }
     

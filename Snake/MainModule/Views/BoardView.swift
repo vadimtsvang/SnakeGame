@@ -21,10 +21,16 @@ class BoardView: UIView {
     
     var addPoint: CGPoint?
     
+    override var intrinsicContentSize: CGSize {
+        let heightView = cellSide * CGFloat(rows)
+        return CGSize(width: UIView.noIntrinsicMetric, height: heightView)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         cellSide = frame.width / CGFloat(cols)
+        invalidateIntrinsicContentSize()
     }
     
     override init(frame: CGRect) {
